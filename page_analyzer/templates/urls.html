@@ -33,14 +33,14 @@
         </tr>
       </thead>
       <tbody>
-        {% for id, name in urls %}
+        {% for id, name, last_check, status_code in urls %}
           <tr>
             <td>{{ id }}</td>
             <td>
               <a href="{{ url_for('get_url', id=id) }}">{{ name }}</a>
             </td>
-            <td>{{ last_check or '-' }}</td>
-            <td>{{ status_code or '-'}}</td>
+            <td>{{ last_check or '—' }}</td>
+            <td>{{ status_code or '—' }}</td>
           </tr>
         {% endfor %}
       </tbody>
@@ -50,3 +50,4 @@
   </div>
 </body>
 </html>
+
