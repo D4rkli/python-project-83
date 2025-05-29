@@ -4,3 +4,5 @@ Version: 0.1.0
 Requires-Dist: flask
 Requires-Dist: python-dotenv
 Requires-Dist: gunicorn
+Requires-Dist: psycopg2-binary
+Requires-Dist: validators

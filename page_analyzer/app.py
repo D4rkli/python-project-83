@@ -54,7 +54,13 @@ def submit_url():
 def list_urls():
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT id, name FROM urls ORDER BY id DESC')
+            cur.execute('''
+                SELECT urls.id, urls.name, MAX(url_checks.created_at) AS last_check
+                FROM urls
+                LEFT JOIN url_checks ON urls.id = url_checks.url_id
+                GROUP BY urls.id
+                ORDER BY urls.id DESC
+            ''')
             urls = cur.fetchall()
     return render_template('urls.html', urls=urls)
 
@@ -65,4 +71,22 @@ def get_url(id):
         with conn.cursor() as cur:
             cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
             url = cur.fetchone()
-    return render_template('url_detail.html', url=url)
+            cur.execute(
+                'SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC',
+                (id,)
+            )
+            checks = cur.fetchall()
+    return render_template('url_detail.html', url=url, checks=checks)
+
+
+@app.route('/urls/<int:id>/checks', methods=['POST'])
+def check_url(id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                'INSERT INTO url_checks (url_id, created_at) VALUES (%s, %s)',
+                (id, datetime.now())
+            )
+            conn.commit()
+            flash('Проверка успешно выполнена', 'success')
+    return redirect(url_for('get_url', id=id))

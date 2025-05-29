@@ -28,6 +28,7 @@
         <tr>
           <th>ID</th>
           <th>Имя</th>
+          <th>Последняя проверка</th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +38,7 @@
             <td>
               <a href="{{ url_for('get_url', id=id) }}">{{ name }}</a>
             </td>
+            <td>{{ last_check or '-' }}</td>
           </tr>
         {% endfor %}
       </tbody>
