@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
 from dotenv import load_dotenv
@@ -55,7 +56,9 @@ def list_urls():
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute('''
-                SELECT urls.id, urls.name, MAX(url_checks.created_at) AS last_check
+                SELECT urls.id, urls.name,
+                       MAX(url_checks.created_at) AS last_check,
+                       MAX(url_checks.status_code) AS status_code
                 FROM urls
                 LEFT JOIN url_checks ON urls.id = url_checks.url_id
                 GROUP BY urls.id
@@ -83,9 +86,28 @@ def get_url(id):
 def check_url(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
+            cur.execute('SELECT name FROM urls WHERE id = %s', (id,))
+            row = cur.fetchone()
+            if not row:
+                flash('Сайт не найден', 'danger')
+                return redirect(url_for('list_urls'))
+
+            url = row[0]
+
+    try:
+        response = requests.get(f'https://{url}')
+        response.raise_for_status()
+        status_code = response.status_code
+    except requests.RequestException:
+        flash('Произошла ошибка при проверке', 'danger')
+        return redirect(url_for('get_url', id=id))
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
             cur.execute(
-                'INSERT INTO url_checks (url_id, created_at) VALUES (%s, %s)',
-                (id, datetime.now())
+                '''INSERT INTO url_checks (url_id, status_code, created_at)
+                   VALUES (%s, %s, %s)''',
+                (id, status_code, datetime.now())
             )
             conn.commit()
             flash('Проверка успешно выполнена', 'success')
