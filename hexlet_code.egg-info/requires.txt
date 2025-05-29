@@ -3,3 +3,5 @@ python-dotenv
 gunicorn
 psycopg2-binary
 validators
+requests
+beautifulsoup4

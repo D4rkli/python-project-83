@@ -6,3 +6,5 @@ Requires-Dist: python-dotenv
 Requires-Dist: gunicorn
 Requires-Dist: psycopg2-binary
 Requires-Dist: validators
+Requires-Dist: requests
+Requires-Dist: beautifulsoup4

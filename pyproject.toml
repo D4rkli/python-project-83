@@ -8,7 +8,8 @@ dependencies = [
   "gunicorn",
   "psycopg2-binary",
   "validators",
-  "requests"
+  "requests",
+  "beautifulsoup4"
 ]
 
 [build-system]

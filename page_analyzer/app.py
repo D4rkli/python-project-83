@@ -1,5 +1,6 @@
 import os
 import requests
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
 from dotenv import load_dotenv
@@ -91,24 +92,29 @@ def check_url(id):
             if not row:
                 flash('Сайт не найден', 'danger')
                 return redirect(url_for('list_urls'))
-
-            url = row[0]
+            url_name = row[0]
 
     try:
-        response = requests.get(f'https://{url}')
+        response = requests.get(f'https://{url_name}', timeout=10)
         response.raise_for_status()
-        status_code = response.status_code
     except requests.RequestException:
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('get_url', id=id))
 
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    h1_tag = soup.h1.string.strip() if soup.h1 and soup.h1.string else None
+    title_tag = soup.title.string.strip() if soup.title and soup.title.string else None
+    desc_tag = soup.find('meta', attrs={'name': 'description'})
+    description = desc_tag['content'].strip() if desc_tag and desc_tag.has_attr('content') else None
+
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(
-                '''INSERT INTO url_checks (url_id, status_code, created_at)
-                   VALUES (%s, %s, %s)''',
-                (id, status_code, datetime.now())
-            )
+            cur.execute('''
+                INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', (id, response.status_code, h1_tag, title_tag, description, datetime.now()))
             conn.commit()
             flash('Проверка успешно выполнена', 'success')
+
     return redirect(url_for('get_url', id=id))
