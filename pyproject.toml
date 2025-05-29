@@ -1,0 +1,14 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+
+dependencies = [
+  "flask",
+  "python-dotenv",
+  "gunicorn"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
