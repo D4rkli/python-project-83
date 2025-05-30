@@ -24,7 +24,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/', methods=['POST'])
+@app.route('/urls', methods=['POST'])
 def submit_url():
     raw_url = request.form.get('url')
 
@@ -32,7 +32,8 @@ def submit_url():
         flash('Некорректный URL', 'danger')
         return render_template('index.html'), 422
 
-    normalized_url = urlparse(raw_url).netloc
+    parsed_url = urlparse(raw_url)
+    normalized_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
 
     with get_connection() as conn:
         with conn.cursor() as cur:

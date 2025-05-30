@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3a99e9-57d0-4459-8c94-d831a2028b9b" name="Changes" comment="Fix">
-      <change beforePath="$PROJECT_DIR$/page_analyzer/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page_analyzer/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page_analyzer/templates/url_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/templates/url_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +149,7 @@
       <workItem from="1748543952903" duration="14386000" />
       <workItem from="1748562098954" duration="1016000" />
       <workItem from="1748563260985" duration="761000" />
-      <workItem from="1748564090028" duration="1349000" />
+      <workItem from="1748564090028" duration="1706000" />
     </task>
     <task id="LOCAL-00001" summary="Start project">
       <option name="closed" value="true" />
@@ -406,7 +407,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748565266963</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1748565579466</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1748565579466</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
