@@ -16,7 +16,7 @@
   <div class="container py-5">
     <h1 class="mb-4 text-center">Анализатор страниц</h1>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
         <div class="alert alert-{{ category }}" role="alert">
@@ -29,9 +29,10 @@
     <form method="post" action="/">
       <div class="input-group input-group-lg mb-3">
         <input type="url" name="url" class="form-control" placeholder="https://example.com" required>
-        <button class="btn btn-primary" type="submit">Проверить</button>
+        <input type="submit" class="btn btn-primary" value="Проверить">
       </div>
     </form>
+
 
   </div>
 
