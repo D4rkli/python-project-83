@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e3a99e9-57d0-4459-8c94-d831a2028b9b" name="Changes" comment="Fix" />
+    <list default="true" id="8e3a99e9-57d0-4459-8c94-d831a2028b9b" name="Changes" comment="Fix">
+      <change beforePath="$PROJECT_DIR$/page_analyzer/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/app.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,7 +148,7 @@
       <workItem from="1748543952903" duration="14386000" />
       <workItem from="1748562098954" duration="1016000" />
       <workItem from="1748563260985" duration="761000" />
-      <workItem from="1748564090028" duration="1003000" />
+      <workItem from="1748564090028" duration="1349000" />
     </task>
     <task id="LOCAL-00001" summary="Start project">
       <option name="closed" value="true" />
@@ -396,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748564951566</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1748565266963</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1748565266963</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

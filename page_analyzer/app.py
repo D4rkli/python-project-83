@@ -115,6 +115,6 @@ def check_url(id):
                 VALUES (%s, %s, %s, %s, %s, %s)
             ''', (id, response.status_code, h1_tag, title_tag, description, datetime.now()))
             conn.commit()
-            flash('Проверка успешно выполнена', 'success')
+            flash('Страница успешно проверена', 'success')
 
     return redirect(url_for('get_url', id=id))
