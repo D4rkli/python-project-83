@@ -46,7 +46,7 @@ def submit_url():
 
             cur.execute(
                 'INSERT INTO urls (name, created_at) VALUES (%s, %s)'
-                ' RETURNING id',(normalized_url, datetime.now())
+                ' RETURNING id' ,(normalized_url, datetime.now())
             )
             new_id = cur.fetchone()[0]
             conn.commit()
