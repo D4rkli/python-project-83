@@ -37,15 +37,16 @@ def submit_url():
 
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT id FROM urls WHERE name = %s', (normalized_url,))
+            cur.execute('SELECT id FROM urls WHERE name = %s',
+                        (normalized_url,))
             row = cur.fetchone()
             if row:
                 flash('Страница уже существует', 'info')
                 return redirect(url_for('get_url', id=row[0]))
 
             cur.execute(
-                'INSERT INTO urls (name, created_at) VALUES (%s, %s) RETURNING id',
-                (normalized_url, datetime.now())
+                'INSERT INTO urls (name, created_at) VALUES (%s, %s)'
+                ' RETURNING id',(normalized_url, datetime.now())
             )
             new_id = cur.fetchone()[0]
             conn.commit()
@@ -74,7 +75,8 @@ def list_urls():
 def get_url(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
+            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s',
+                        (id,))
             url = cur.fetchone()
             cur.execute(
                 'SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC',
@@ -105,16 +107,20 @@ def check_url(id):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     h1_tag = soup.h1.string.strip() if soup.h1 and soup.h1.string else None
-    title_tag = soup.title.string.strip() if soup.title and soup.title.string else None
+    title_tag = soup.title.string.strip() \
+        if soup.title and soup.title.string else None
     desc_tag = soup.find('meta', attrs={'name': 'description'})
-    description = desc_tag['content'].strip() if desc_tag and desc_tag.has_attr('content') else None
+    description = desc_tag['content'].strip() \
+        if desc_tag and desc_tag.has_attr('content') else None
 
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute('''
-                INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
+                INSERT INTO url_checks (url_id, status_code,
+                 h1, title, description, created_at)
                 VALUES (%s, %s, %s, %s, %s, %s)
-            ''', (id, response.status_code, h1_tag, title_tag, description, datetime.now()))
+            ''', (id, response.status_code, h1_tag,
+                  title_tag, description, datetime.now()))
             conn.commit()
             flash('Страница успешно проверена', 'success')
 

@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3a99e9-57d0-4459-8c94-d831a2028b9b" name="Changes" comment="Fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page_analyzer/templates/url_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/templates/url_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page_analyzer/templates/urls.html" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/templates/urls.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page_analyzer/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/page_analyzer/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +68,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5007485" visible="true" weight="0.10598959" />
-      <window_info id="Commit" order="1" sideWeight="0.8270958" weight="0.10598959" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5007485" weight="0.10598959" />
+      <window_info active="true" id="Commit" order="1" sideWeight="0.8270958" visible="true" weight="0.10598959" />
       <window_info id="Structure" order="2" sideWeight="0.49925148" side_tool="true" weight="0.14296874" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="TypeScript" />
@@ -167,7 +166,7 @@
       <workItem from="1748562098954" duration="1016000" />
       <workItem from="1748563260985" duration="761000" />
       <workItem from="1748564090028" duration="1706000" />
-      <workItem from="1748648832519" duration="2224000" />
+      <workItem from="1748648832519" duration="2998000" />
     </task>
     <task id="LOCAL-00001" summary="Start project">
       <option name="closed" value="true" />
@@ -457,7 +456,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748649640183</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1748651224035</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1748651224035</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1748651510265</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1748651510265</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
