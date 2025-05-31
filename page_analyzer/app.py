@@ -96,7 +96,7 @@ def check_url(id):
             url_name = row[0]
 
     try:
-        response = requests.get(f'https://{url_name}', timeout=10)
+        response = requests.get(url_name, timeout=10)
         response.raise_for_status()
     except requests.RequestException:
         flash('Произошла ошибка при проверке', 'danger')
