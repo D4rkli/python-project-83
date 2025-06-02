@@ -35,7 +35,7 @@ def submit_url():
 
     new_id = insert_url(normalized_url, datetime.now())
     flash('Страница успешно добавлена', 'success')
-    return redirect(url_for('list_urls'))
+    return redirect(url_for('urls'))
 
 
 @app.route('/urls')
