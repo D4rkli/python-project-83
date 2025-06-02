@@ -31,11 +31,11 @@ def submit_url():
     existing_url = get_url_by_name(normalized_url)
     if existing_url:
         flash('Страница уже существует', 'info')
-        return redirect(url_for('get_url', id=existing_url[0]))
+        return redirect(url_for('list_urls'))
 
     new_id = insert_url(normalized_url, datetime.now())
     flash('Страница успешно добавлена', 'success')
-    return redirect(url_for('get_url', id=new_id))
+    return redirect(url_for('list_urls'))
 
 
 @app.route('/urls')
