@@ -49,7 +49,7 @@ def list_urls():
 @app.route('/urls/<int:id>')
 def get_url(id):
     url = db.get_url_by_id(id)
-    checks = db.get_checks_by_url_id(id)
+    checks = db.get_url_checks_by_id(id)
     return render_template('url_detail.html', url=url, checks=checks)
 
 
@@ -73,6 +73,6 @@ def check_url(id):
     desc_tag = soup.find('meta', attrs={'name': 'description'})
     description = desc_tag['content'].strip() if desc_tag and desc_tag.has_attr('content') else None
 
-    db.insert_check(id, response.status_code, h1, title, description)
+    db.insert_url_check(id, response.status_code, h1, title, description)
     flash('Страница успешно проверена', 'success')
     return redirect(url_for('get_url', id=id))
