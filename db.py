@@ -1,11 +1,8 @@
-from dotenv import load_dotenv
-from datetime import datetime
 import psycopg2
+from datetime import datetime
 import os
 
-load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-
 
 def get_connection():
     return psycopg2.connect(DATABASE_URL)
@@ -16,13 +13,12 @@ def get_url_by_name(name):
             cur.execute('SELECT id FROM urls WHERE name = %s', (name,))
             return cur.fetchone()
 
-
-def insert_url(name, created_at):
+def insert_url(name):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 'INSERT INTO urls (name, created_at) VALUES (%s, %s) RETURNING id',
-                (name, created_at)
+                (name, datetime.now())
             )
             return cur.fetchone()[0]
 
@@ -40,35 +36,30 @@ def get_all_urls():
             ''')
             return cur.fetchall()
 
-def get_url_with_checks(id):
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
-            url = cur.fetchone()
-            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC', (id,))
-            checks = cur.fetchall()
-            return url, checks
-
 def get_url_by_id(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
             return cur.fetchone()
 
-def get_checks_by_url_id(id):
+def get_url_checks_by_id(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(
-                'SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC',
-                (id,)
-            )
+            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC', (id,))
             return cur.fetchall()
 
-def insert_url_check(url_id, status_code, h1, title, description, created_at):
+def get_url_name_by_id(id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT name FROM urls WHERE id = %s', (id,))
+            row = cur.fetchone()
+            return row[0] if row else None
+
+def insert_url_check(url_id, status_code, h1, title, description):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute('''
                 INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
                 VALUES (%s, %s, %s, %s, %s, %s)
-            ''', (url_id, status_code, h1, title, description, created_at))
+            ''', (url_id, status_code, h1, title, description, datetime.now()))
             conn.commit()
