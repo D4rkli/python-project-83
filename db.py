@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from datetime import datetime
 import psycopg2
 import os
 
@@ -38,6 +39,15 @@ def get_all_urls():
                 ORDER BY urls.id DESC
             ''')
             return cur.fetchall()
+
+def get_url_with_checks(id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
+            url = cur.fetchone()
+            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC', (id,))
+            checks = cur.fetchall()
+            return url, checks
 
 def get_url_by_id(id):
     with get_connection() as conn:
