@@ -30,7 +30,7 @@ def submit_url():
     parsed = urlparse(raw_url)
     normalized_url = f"{parsed.scheme}://{parsed.netloc}"
 
-    existing = db.find_url_by_name(normalized_url)
+    existing = db.get_url_by_name(normalized_url)
     if existing:
         flash('Страница уже существует', 'info')
         return redirect(url_for('get_url', id=existing[0]))
