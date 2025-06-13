@@ -55,8 +55,7 @@ def get_url_by_id(id):
 def get_url_checks_by_id(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT * FROM url_checks '
-                        'WHERE url_id = %s ORDER BY id DESC',
+            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC',
                         (id,))
             return cur.fetchall()
 
