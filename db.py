@@ -58,8 +58,7 @@ def get_url_checks_by_id(id):
             cur.execute(
                 'SELECT * FROM url_checks '
                 'WHERE url_id = %s ORDER BY id DESC',
-                (id,)
-            )
+                (id,))
             return cur.fetchall()
 
 
