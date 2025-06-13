@@ -22,7 +22,8 @@ def insert_url(name):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
-                'INSERT INTO urls (name, created_at) VALUES (%s, %s) RETURNING id',
+                'INSERT INTO urls (name, created_at)'
+                'VALUES (%s, %s) RETURNING id',
                 (name, datetime.now())
             )
             return cur.fetchone()[0]
