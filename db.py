@@ -46,14 +46,16 @@ def get_all_urls():
 def get_url_by_id(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s', (id,))
+            cur.execute('SELECT id, name, created_at FROM urls WHERE id = %s',
+                        (id,))
             return cur.fetchone()
 
 
 def get_url_checks_by_id(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC', (id,))
+            cur.execute('SELECT * FROM url_checks WHERE url_id = %s ORDER BY id DESC',
+                        (id,))
             return cur.fetchall()
 
 
@@ -69,6 +71,8 @@ def insert_url_check(url_id, status_code, h1, title, description):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute('''
-                INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)
-                VALUES (%s, %s, %s, %s, %s, %s)
-            ''', (url_id, status_code, h1, title, description, datetime.now()))
+                INSERT INTO url_checks (
+                url_id, status_code, h1, title, description, created_at
+                ) VALUES (%s, %s, %s, %s, %s, %s)
+            ''',
+            (url_id, status_code, h1, title, description, datetime.now()))

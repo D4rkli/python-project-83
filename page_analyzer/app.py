@@ -71,7 +71,10 @@ def check_url(id):
     h1 = soup.h1.get_text(strip=True) if soup.h1 else None
     title = soup.title.get_text(strip=True) if soup.title else None
     desc_tag = soup.find('meta', attrs={'name': 'description'})
-    description = desc_tag['content'].strip() if desc_tag and desc_tag.has_attr('content') else None
+    description = (
+        desc_tag['content'].strip()
+        if desc_tag and desc_tag.has_attr('content') else None
+    )
 
     db.insert_url_check(id, response.status_code, h1, title, description)
     flash('Страница успешно проверена', 'success')
