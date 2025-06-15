@@ -4,7 +4,7 @@ from page_analyzer.html_parser import parse_html
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-import validators
+from page_analyzer.validators import is_valid_url
 
 import db
 
@@ -23,7 +23,7 @@ def index():
 def submit_url():
     raw_url = request.form.get('url')
 
-    if not validators.url(raw_url) or len(raw_url) > 255:
+    if not is_valid_url(raw_url):
         flash('Некорректный URL', 'danger')
         return render_template('index.html'), 422
 
