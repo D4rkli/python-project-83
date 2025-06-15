@@ -1,6 +1,6 @@
 import os
 import requests
-from html_parser import parse_html
+from page_analyzer.html_parser import parse_html
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
 from urllib.parse import urlparse
