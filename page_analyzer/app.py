@@ -1,6 +1,6 @@
 import os
 import requests
-from bs4 import BeautifulSoup
+from html_parser import parse_html
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dotenv import load_dotenv
 from urllib.parse import urlparse
@@ -63,18 +63,10 @@ def check_url(id):
     try:
         response = requests.get(url_name, timeout=10)
         response.raise_for_status()
+        h1, title, description = parse_html(response.text)
     except requests.RequestException:
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('get_url', id=id))
-
-    soup = BeautifulSoup(response.text, 'html.parser')
-    h1 = soup.h1.get_text(strip=True) if soup.h1 else None
-    title = soup.title.get_text(strip=True) if soup.title else None
-    desc_tag = soup.find('meta', attrs={'name': 'description'})
-    description = (
-        desc_tag['content'].strip()
-        if desc_tag and desc_tag.has_attr('content') else None
-    )
 
     db.insert_url_check(id, response.status_code, h1, title, description)
     flash('Страница успешно проверена', 'success')
