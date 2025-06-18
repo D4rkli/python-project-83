@@ -2,13 +2,14 @@ import psycopg2
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from psycopg2.extras import RealDictCursor
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 def get_connection():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
 
 
 def get_url_by_name(name):
@@ -26,7 +27,7 @@ def insert_url(name):
                 'VALUES (%s, %s) RETURNING id',
                 (name, datetime.now())
             )
-            return cur.fetchone()[0]
+            return cur.fetchone()['id']
 
 
 def get_all_urls():
@@ -67,7 +68,7 @@ def get_url_name_by_id(id):
         with conn.cursor() as cur:
             cur.execute('SELECT name FROM urls WHERE id = %s', (id,))
             row = cur.fetchone()
-            return row[0] if row else None
+            return row['name'] if row else None
 
 
 def insert_url_check(url_id, status_code, h1, title, description):

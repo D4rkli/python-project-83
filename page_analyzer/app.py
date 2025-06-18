@@ -33,7 +33,7 @@ def submit_url():
     existing = db.get_url_by_name(normalized_url)
     if existing:
         flash('Страница уже существует', 'info')
-        return redirect(url_for('get_url', id=existing[0]))
+        return redirect(url_for('get_url', id=existing['id']))
 
     new_id = db.insert_url(normalized_url)
     flash('Страница успешно добавлена', 'success')
