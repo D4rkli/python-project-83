@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from urllib.parse import urlparse
 from page_analyzer.validators import is_valid_url
 
-import db
+from page_analyzer import db
 
 load_dotenv()
 
