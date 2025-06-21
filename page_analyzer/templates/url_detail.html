@@ -1,23 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Информация о сайте{% endblock %}
+{% block title %}Информация о сайте — Анализатор{% endblock %}
 
 {% block content %}
   {% if url %}
     <table class="table table-bordered" data-test="url">
       <tbody>
-        <tr>
-          <th>ID</th>
-          <td>{{ url.id }}</td>
-        </tr>
-        <tr>
-          <th>Имя</th>
-          <td>{{ url.name }}</td>
-        </tr>
-        <tr>
-          <th>Дата добавления</th>
-          <td>{{ url.created_at }}</td>
-        </tr>
+        <tr><th>ID</th><td>{{ url.id }}</td></tr>
+        <tr><th>Имя</th><td>{{ url.name }}</td></tr>
+        <tr><th>Дата добавления</th><td>{{ url.created_at }}</td></tr>
       </tbody>
     </table>
 
@@ -29,12 +20,7 @@
     <table class="table table-bordered" data-test="checks">
       <thead class="table-light">
         <tr>
-          <th>ID</th>
-          <th>Код ответа</th>
-          <th>H1</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Дата</th>
+          <th>ID</th><th>Код ответа</th><th>H1</th><th>Title</th><th>Description</th><th>Дата</th>
         </tr>
       </thead>
       <tbody>
@@ -56,4 +42,3 @@
 
   <a href="{{ url_for('list_urls') }}" class="btn btn-link">← К списку сайтов</a>
 {% endblock %}
-
