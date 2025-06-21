@@ -49,6 +49,10 @@ def list_urls():
 @app.route('/urls/<int:id>')
 def get_url(id):
     url = db.get_url_by_id(id)
+    if not url:
+        flash('Сайт не найден', 'danger')
+        return redirect(url_for('list_urls'))
+
     checks = db.get_url_checks_by_id(id)
     return render_template('url_detail.html', url=url, checks=checks)
 
